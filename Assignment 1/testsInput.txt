@@ -1,0 +1,93 @@
+add 1 111 SuperNA10
+add 3 333 Global25
+add 2 222 Global10
+add 5 555 SuperNA10
+add 6 666
+add -6 666 SuperNA10
+add 6 xxx SuperNA10
+add 6 666 badCardType
+add 2 212 Global10
+invalidCom
+
+printAll
+getBalance 3 333
+getBalance 1 111
+getBalance 5 555
+getBalance 5
+getBalance xxx 555
+getBalance -5 555
+getBalance 5 554
+getBalance 4 444
+printAll
+getLimit 2 222 EUROPE
+getLimit 3 333 EUROPE
+getLimit 1 111 USA
+getLimit 5 555 CANADA
+getLimit 1 111 CANADA
+getLimit 3 333 CANADA
+getLimit 3 333 USA
+getLimit 3 333 ASIA
+getLimit 3 333 ANZ
+getLimit 3 333 LATINAM
+getLimit 3 333 AFRICA
+getLimit 2 222 CANADA
+getLimit 2 222 USA
+getLimit 2 222 ASIA
+getLimit 2 222 ANZ
+getLimit 2 222 LATINAM
+getLimit 2 222 AFRICA
+getLimit 5
+getLimit xxx 555 CANADA
+getLimit -5 555 CANADA
+getLimit 5 xxx CANADA
+getLimit 5 -555 CANADA
+getLimit 5 555 BadZone
+getLimit 4 444 CANADA
+getLimit 5 444 CANADA
+getLimit 5 555 EUROPE
+printAll
+charge 2 222 EUROPE 5
+getBalance 2 222
+charge 3 333 EUROPE 5
+getBalance 3 333
+getLimit 3 333 USA
+charge 1 111 USA 10
+getBalance 1 111
+charge 5 555 CANADA 5
+getBalance 5 555
+charge 5 555 CANADA 10
+getBalance 5 555
+charge 3 333 AFRICA 5
+getBalance 3 333
+charge 1 111 CANADA 10
+getBalance 1 111
+charge 3 333 CANADA 10
+charge 3 333 USA 10
+charge 3 333 ASIA 10
+charge 3 333 ANZ 10
+charge 3 333 LATINAM 10
+charge 3 333 AFRICA 10
+getBalance 3 333
+charge 2 222 CANADA 2
+charge 2 222 USA 2
+charge 2 222 ASIA 2
+charge 2 222 ANZ 2
+charge 2 222 LATINAM 2
+charge 2 222 AFRICA 8
+getBalance 2 222 
+charge 5
+charge xxx 555 CANADA 5
+charge -5 555 CANADA 5
+charge 5 xxx CANADA 5
+charge 5 -555 CANADA 5
+charge 5 555 CANADA -5
+charge 5 555 CANADA xxx
+getBalance 5 555
+printAll
+charge 4 444 CANADA 5
+charge 5 444 CANADA 5
+charge 5 555 EUROPE 5
+charge 5 555 CANADA 99999
+printAll
+deductWeeklyFee
+printAll
