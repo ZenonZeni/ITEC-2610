@@ -1,4 +1,4 @@
-package a2;
+package A2;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -6,14 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import a2.Book.BookCategory;
 
 /**
  * BookListWindow
+ * @edited by: Christopher Nguyen
+ * A2
+ * @date: 11/14/2019
  */
 public class BookListWindow extends JFrame implements ActionListener {
-
-    //======== Top ========
+    /**
+	 * 
+	 */
+	//======== Top ========
     private JPanel topPanel;
     private JTextField searchTextField;
     private JButton searchButton;
@@ -30,11 +34,11 @@ public class BookListWindow extends JFrame implements ActionListener {
     private JButton removeButton;
 
     //======== Data ========
-    private BookStorage bookStorage;
+    private BookStorage bookStorage1;
     private BookArrayModel bookListModel;
 
     public BookListWindow(BookStorage bookStorage) {
-        this.bookStorage = bookStorage;
+        this.bookStorage1 = bookStorage;
         bookListModel = new BookArrayModel(bookStorage.getAll());
         initComponents();
     }
@@ -43,7 +47,7 @@ public class BookListWindow extends JFrame implements ActionListener {
      * Clears the search results and list all the books.
      */
     public void resetToAll() {
-        bookListModel.setBookArray(bookStorage.getAll());
+        bookListModel.setBookArray(bookStorage1.getAll());
         searchTextField.setText("");
         bookTitleList.updateUI();
     }
@@ -52,7 +56,7 @@ public class BookListWindow extends JFrame implements ActionListener {
      * Returns the book storage.
      */
     public BookStorage getBookStorage() {
-        return bookStorage;
+        return bookStorage1;
     }
 
     /**
@@ -90,6 +94,19 @@ public class BookListWindow extends JFrame implements ActionListener {
             // Configure the bookTitleList 1) Use single selection
             //TODO Add your code here...
         	bookTitleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        	
+        	//When Program starts it will list all Titles in the middle
+       	  	String[] temp = new String [bookListModel.getSize()];
+       	  	for (int i =0; i <bookListModel.getSize() ; i++ ) {
+       	  		if(bookListModel.getElementAt(i)== null) {
+       	  			continue;
+       	  		}
+       	  		else {
+       	  			temp[i]= bookListModel.getElementAt(i);
+       	  		}
+     		}
+     		bookTitleList.setListData(temp);
+     		bookTitleList.updateUI();
 
         }
 
@@ -131,14 +148,15 @@ public class BookListWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    	//Searches through the array and outputs desired book based off keyword. Also you can use getAll to display all books
        if (e.getSource() == searchButton) {
            // Action for the SEARCH button
-           // TODO Add your code here...
     	  String getValue = searchTextField.getText();
     	  String[] temp = new String [bookListModel.getSize()];
-    	  Book titleMatch = bookStorage.getByTitle(getValue);
-    	  Book[] b = bookStorage.titleSearch(getValue);
-    	  if (getValue.equalsIgnoreCase( "all")) {
+    	  Book titleMatch = bookStorage1.getByTitle(getValue);
+    	  Book[] b = bookStorage1.titleSearch(getValue);
+    	  
+    	  if (getValue.equalsIgnoreCase("getAll")) {
     		  for (int i =0; i <bookListModel.getSize() ; i++ ) {
     			if(bookListModel.getElementAt(i)== null) {
     				continue;
@@ -151,7 +169,7 @@ public class BookListWindow extends JFrame implements ActionListener {
     		  bookTitleList.updateUI();
     	  }
     	  else if(!((b)== null)){
-    		  for (int i =0; i <b.length ; i++ ) {
+    		  for (int i =0; i <b.length-1 ; i++ ) {
       			if(b[i]== null) {
       				continue;
       			}
@@ -162,63 +180,96 @@ public class BookListWindow extends JFrame implements ActionListener {
       		  bookTitleList.setListData(temp);
       		  bookTitleList.updateUI();
     	  }
-    	  else if(titleMatch == null) {
-    		  System.out.println("No match");
-    	  }
     	  else if(getValue.equalsIgnoreCase((titleMatch.getTitle()))){
     		  String[] tMatch = {titleMatch.getTitle()};
     		  bookTitleList.setListData(tMatch);
     		  bookTitleList.updateUI();
     	  }
+    	  
     	  else {
-    		  System.out.println("No match");
+    		  JOptionPane.showMessageDialog(this, "Book does not exist");
     	  }
     		  
     	  
-
+    	  //Clears the J List and re-list all books
        } else if (e.getSource() == clearButton) {
            // Action for the CLEAR button
-           // TODO Add your code here...
     	  String[] temp =  {};
     	  bookTitleList.setListData(temp);
- 		  bookTitleList.updateUI();
-
+    	  resetToAll();
+    	  temp = new String [bookListModel.getSize()];
+    	  for (int i =0; i <bookListModel.getSize() ; i++ ) {
+  			if(bookListModel.getElementAt(i)== null) {
+  				continue;
+  			}
+  			else {
+  			temp[i]= bookListModel.getElementAt(i);
+  			}
+  		  }
+  		  bookTitleList.setListData(temp);
+  		  bookTitleList.updateUI();
+  		  searchTextField.setText("");
+  		  
+    	  
+    	  //adds a new book into the array and reset text field
        } else if (e.getSource() == addButton) {
            // Action for the ADD button
-           // TODO Add your code here...
-    	   Book b = new Book("", "", 0, BookCategory.Programming);
-    	   UpdateBookDialog dialog = new UpdateBookDialog(this);
-    	   dialog.showBook(b);
+    	   AddBookDialog dialog = new AddBookDialog(this);
+    	   dialog.setVisible(true);
+     	   resetToAll();
+     	   String[] temp =  {};
+     	   temp = new String [bookListModel.getSize()];
+     	   for (int i =0; i <bookListModel.getSize() ; i++ ) {
+  			if(bookListModel.getElementAt(i)== null) {
+  				continue;
+  			}
+  			else {
+  			temp[i]= bookListModel.getElementAt(i);
+  			}
+  		  }
+    	  bookTitleList.setListData(temp);
+     	   
+    	  //Used to check details of book or update a book
        } else if (e.getSource() == detailButton) {
            // Action for the DETAIL button
-           // TODO Add your code here...
     	   if(!(bookTitleList.getSelectedValue() == null)) {
     	   Book b = null;
     	   String t = bookTitleList.getSelectedValue();
-    	   System.out.println(t);
-    	   b= bookStorage.getByTitle(t);
+    	   b= bookStorage1.getByTitle(t);
     	   UpdateBookDialog dialog = new UpdateBookDialog(this);
     	   dialog.showBook(b);
     	   }
     	   else {
-    		   System.out.println("bookTitlelist is empty");
+    		   JOptionPane.showMessageDialog(this, "Please click on a book before you click on Details");
     	   }
     	   
+    	   //Removes a selected J List value from the array 
        } else if (e.getSource() == removeButton) {
            // Action for the REMOVE button
            if (!bookTitleList.isSelectionEmpty()) {
-               bookStorage.remove(bookTitleList.getSelectedValue());
+               bookStorage1.remove(bookTitleList.getSelectedValue());
                JOptionPane.showMessageDialog(this, "Remove Successful!");
                resetToAll();
+               String[] temp =  {};
+               temp = new String [bookListModel.getSize()];
+         	  	for (int i =0; i <bookListModel.getSize() ; i++ ) {
+       			if(bookListModel.getElementAt(i)== null) {
+       				continue;
+       			}
+       			else {
+       			temp[i]= bookListModel.getElementAt(i);
+       			}
+       		  }
+         	  bookTitleList.setListData(temp);
            }
        }
     }
-
     public static void main(String[] args) {
-        BookStorage bookStore = new BookStorage();
+		BookStorage bookStore = new BookStorage();
         bookStore.initBooks();
         BookListWindow bookListWindow = new BookListWindow(bookStore);
         bookListWindow.setVisible(true);
-    }
+
+	}
 }
 

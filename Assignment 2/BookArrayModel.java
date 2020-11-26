@@ -1,11 +1,14 @@
-package a2;
+package A2;
 import javax.swing.AbstractListModel;
 /**
  * A book array model used by {@link javax.swing.JList}.
  */
 
 public class BookArrayModel extends AbstractListModel<String> {
-    private Book[] bookArray;
+    /**
+	 * 
+	 */
+	private Book[] bookArray;
 
     public BookArrayModel(Book[] bookArray) {
         this.bookArray = bookArray;

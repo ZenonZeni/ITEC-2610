@@ -1,16 +1,21 @@
-package a2;
+package A2;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
-
 /**
  * The dialog to show/save the book's properties.
+ * @edited by: Christopher Nguyen
+ * A2
+ * @date: 11/14/2019
  */
 public abstract class BookPropertyDialog extends JDialog implements ActionListener {
 
-    protected JLabel titleLabel;
+    /**
+	 * 
+	 */
+	protected JLabel titleLabel;
     protected JTextField titleTextField;
     protected JLabel authorsLabel;
     protected JTextField authorsTextField;
@@ -82,18 +87,23 @@ public abstract class BookPropertyDialog extends JDialog implements ActionListen
             // Action for the SAVE button
             // TODO Add your code here...
             // Handle the NumberFormatException caused by Integer.valueOf().
-            {
+        	
+            try{
                 Book book = new Book(
                         titleTextField.getText(),
                         authorsTextField.getText(),
                         Integer.valueOf(pagesTextField.getText()),
                         Book.BookCategory.valueOf(Objects.requireNonNull(categoryComboBox.getSelectedItem()).toString()));
-                doSave(book);
+                	doSave(book);
+                	JOptionPane.showMessageDialog(this, "Save successful!");
+                    bookListWindow.resetToAll();
+                    this.dispose();
             }
-
-            JOptionPane.showMessageDialog(this, "Save successful!");
-            bookListWindow.resetToAll();
-            this.dispose();
+            catch(NumberFormatException name) {
+            	JOptionPane.showMessageDialog(this,"Error in converting the pageTextField String to a Int value");
+            	this.dispose();
+            }
+            
         } else if (e.getSource() == cancelButton) {
             // Action for the CANCEL button
             this.dispose();

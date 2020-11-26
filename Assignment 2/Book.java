@@ -1,7 +1,7 @@
+package A2;
 /**
  * Book
  */
-package a2;
 public class Book {
 
     public enum BookCategory {
