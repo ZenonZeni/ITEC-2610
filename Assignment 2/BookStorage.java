@@ -27,16 +27,16 @@ public class BookStorage {
     public void initBooks() {
         books[0] = new Book("Discovering Beyond","Christopher",100,Book.BookCategory.Programming);
         books[1] = new Book("How to build a computer","Christopher",200,Book.BookCategory.Database);
-        books[2] = new Book("Why is life Hard","Christopher",300,Book.BookCategory.Programming);
-        books[3] = new Book("I need a 90 or much higher","Christopher",50,Book.BookCategory.Design);
+        books[2] = new Book("My Everyday Life","Christopher",300,Book.BookCategory.Programming);
+        books[3] = new Book("How to get a Higher Mark","Christopher",50,Book.BookCategory.Design);
         books[4] = new Book("Took me two days","Christopher",100,Book.BookCategory.Programming);
         books[5] = new Book("One life and One curse","Christopher",10000,Book.BookCategory.Design);
-        books[6] = new Book("Video games","Christopher",1,Book.BookCategory.Programming);
+        books[6] = new Book("How Video games make you smarter","Christopher",1,Book.BookCategory.Programming);
         books[7] = new Book("Java Programming","Christopher",1000,Book.BookCategory.Programming);
         books[8] = new Book("ITEC 2610","Christopher",500,Book.BookCategory.Database);
         books[9] = new Book("My hat","Christopher",15,Book.BookCategory.Programming);
         books[10] = new Book("The internet","Christopher",10000000,Book.BookCategory.Programming);
-        books[11] = new Book("If you give me a great mark thanks :D ", "Christopher", 0 ,Book.BookCategory.Database);
+        books[11] = new Book("How to give higher grades to students", "Christopher", 0 ,Book.BookCategory.Database);
         
     }
 
